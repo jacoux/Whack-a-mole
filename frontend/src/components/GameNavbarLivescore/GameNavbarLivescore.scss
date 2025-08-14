@@ -1,0 +1,46 @@
+$primary-color: #4caf50;
+
+.game-livescore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #666;
+  }
+
+  &__level {
+    background: $primary-color;
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    min-width: 40px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(76, 175, 80, 0.3);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(76, 175, 80, 0.4);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .game-livescore {
+    &__level {
+      padding: 4px 12px;
+      font-size: 1rem;
+    }
+  }
+}

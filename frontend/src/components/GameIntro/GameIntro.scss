@@ -1,0 +1,204 @@
+@use "sass:color";
+
+$primary-color: #4caf50;
+$secondary-color: #2196f3;
+$danger-color: #f44336;
+$text-color: #333;
+$background-color: #f5f5f5;
+$border-radius: 8px;
+$box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+.game-intro {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+
+  &__container {
+    background: white;
+    border-radius: $border-radius * 2;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: $box-shadow;
+    text-align: center;
+  }
+
+  &__title {
+    font-size: 3rem;
+    color: $text-color;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+  }
+
+  &__instructions {
+    background: $background-color;
+    border-radius: $border-radius;
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: left;
+
+    h3 {
+      margin-top: 0;
+      color: $text-color;
+      font-size: 1.3rem;
+    }
+
+    ul {
+      margin: 15px 0 0 20px;
+      
+      li {
+        margin-bottom: 8px;
+        color: #555;
+      }
+    }
+  }
+
+  &__form {
+    margin-bottom: 30px;
+  }
+
+  &__label {
+    display: block;
+    font-weight: bold;
+    color: $text-color;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+  }
+
+  &__input {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px 16px;
+    border: 2px solid #ddd;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+    }
+
+    &::placeholder {
+      color: #999;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+
+  &__button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+
+    &--primary {
+      background-color: $primary-color;
+      color: white;
+
+      &:hover:not(:disabled) {
+        background-color: color.scale($primary-color, $lightness: -10%);
+        transform: translateY(-2px);
+      }
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+        transform: none;
+      }
+    }
+
+    &--secondary {
+      background-color: $secondary-color;
+      color: white;
+
+      &:hover {
+        background-color: color.scale($secondary-color, $lightness: -10%);
+        transform: translateY(-2px);
+      }
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  &__stats {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    background: $background-color;
+    border-radius: $border-radius;
+    padding: 20px;
+  }
+
+  &__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__stat-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 5px;
+  }
+
+  &__stat-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: $primary-color;
+  }
+}
+
+@media (max-width: 768px) {
+  .game-intro {
+    padding: 10px;
+
+    &__container {
+      padding: 20px;
+    }
+
+    &__title {
+      font-size: 2.5rem;
+    }
+
+    &__buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__stats {
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    &__stat {
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+}

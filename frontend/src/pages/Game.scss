@@ -1,0 +1,295 @@
+@use "sass:color";
+
+$primary-color: #4caf50;
+
+.game-page {
+  min-height: 100vh;
+  background: url("./../assets/WAM_bg.jpg") no-repeat center center fixed;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  cursor: url("./../assets/WAM_cursor.png"), grab;
+  justify-content: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.game-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - 120px);
+  position: relative;
+}
+
+.game-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+
+  &__content {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+
+    h2 {
+      color: #333;
+      margin-bottom: 16px;
+      font-size: 2rem;
+    }
+
+    p {
+      color: #666;
+      margin-bottom: 24px;
+      font-size: 1.1rem;
+    }
+  }
+
+  &__button {
+    background: linear-gradient(135deg, $primary-color, color.scale($primary-color, $lightness: 20%));
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 25px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(76, 175, 80, 0.3);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 40px 0;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+
+  &--disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+.game-hole {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &__background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('/assets/WAM_Hole.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+  }
+
+  &__rim {
+    display: none;
+  }
+
+  &--hit {
+    .game-mole {
+      animation: moleHit 0.5s ease-out;
+    }
+  }
+}
+
+.game-mole {
+  position: relative;
+  z-index: 10;
+  animation: moleAppear 0.3s ease-out;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: transform 0.1s ease;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &--hit {
+    animation: moleDisappear 0.3s ease-out;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+}
+
+.game-score-popup {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: $primary-color;
+  font-weight: bold;
+  font-size: 1.5rem;
+  z-index: 20;
+  animation: scorePopup 1s ease-out forwards;
+  pointer-events: none;
+}
+
+.game-instructions {
+  text-align: center;
+  color: white;
+  font-size: 1.1rem;
+  margin-top: 20px;
+
+  p {
+    margin: 8px 0;
+    opacity: 0.9;
+  }
+}
+
+@keyframes moleAppear {
+  0% {
+    transform: translateY(60px) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-10px) scale(1.1);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes moleDisappear {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(60px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes moleHit {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3) rotate(10deg); }
+  100% { transform: scale(0) rotate(30deg); }
+}
+
+@keyframes scorePopup {
+  0% {
+    transform: translateX(-50%) translateY(0) scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) translateY(-30px) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50px) scale(1);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .game-board {
+    gap: 15px;
+    padding: 20px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .game-hole {
+    width: 80px;
+    height: 80px;
+  }
+
+  .game-mole {
+    width: 50px;
+    height: 50px;
+  }
+
+  .game-instructions {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-page {
+  }
+  
+  .game-board {
+    gap: 8px;
+    padding: 10px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .game-hole {
+    width: 60px;
+    height: 60px;
+  }
+
+  .game-mole {
+    width: 40px;
+    height: 40px;
+  }
+
+  .game-overlay {
+    &__content {
+      padding: 30px 20px;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+
+    &__button {
+      padding: 12px 24px;
+      font-size: 1rem;
+    }
+  }
+}
